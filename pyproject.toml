@@ -1,7 +1,7 @@
 [project]
 name = "project1-greku-ivan-m-25255"
 version = "0.1.0"
-description = ""
+description = "Консольная игра 'Лабиринт сокровищ' (лабиринт, предметы, загадки, ловушки)."
 authors = [
     {name = "Militans",email = "ivangreku48@gmail.com"}
 ]
