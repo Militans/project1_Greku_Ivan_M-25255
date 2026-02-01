@@ -98,5 +98,23 @@ def use_item(game_state: dict, item_name: str) -> None:
     :param item_name:
     :return:
     """
-    pass
+    inventory = game_state["player_inventory"]
+
+    if item_name not in inventory:
+        print("У вас нет такого предмета.")
+        return
+
+    match item_name:
+        case "torch":
+            print("Вы зажигаете факел. Вокруг становится заметно светлее.")
+        case "sword":
+            print("Вы берёте меч в руку. Вы чувствуете уверенность и защиту.")
+        case "bronze_box":
+            if "rusty_key" not in inventory:
+                inventory.append("rusty_key")
+                print("Вы открываете бронзовую шкатулку и находите внутри rusty_key!")
+            else:
+                print("Шкатулка уже пуста - rusty_key у вас.")
+        case _:
+            print("Вы не знаете, как использовать этот предмет.")
 
