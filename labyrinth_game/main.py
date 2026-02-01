@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
-from .constants import ROOMS
+from .constants import COMMANDS, ROOMS
 from .player_actions import get_input, move_player, show_inventory, take_item, use_item
 from .utils import attempt_open_treasure, describe_current_room, show_help, solve_puzzle
 
 
-def process_command(game_state: dict, command: str) -> None:
+def process_command(game_state: dict, command: str, commands: dict[str, str]) -> None:
     """
     Обрабатывает команду пользователя и вызывает нужное действие.
 
@@ -13,6 +13,7 @@ def process_command(game_state: dict, command: str) -> None:
 
     :param game_state: Словарь состояния игры
     :param command: Команда, введенная пользователем
+    :param commands: COMMANDS для show_help()
     :return: None
     """
     line = command.strip()
@@ -31,6 +32,8 @@ def process_command(game_state: dict, command: str) -> None:
                 print("Куда идти? Пример: go north")
             else:
                 move_player(game_state, arg.lower())
+        case "north" | "south" | "east" | "west":
+            move_player(game_state, cur_command)
         case "take":
             if not arg:
                 print("Что поднять? Пример: take torch")
@@ -44,7 +47,7 @@ def process_command(game_state: dict, command: str) -> None:
         case "inventory":
             show_inventory(game_state)
         case "help":
-            show_help()
+            show_help(commands)
         case "solve":
             cur_room = game_state["current_room"]
             room_items = ROOMS[cur_room]["items"]
@@ -56,7 +59,7 @@ def process_command(game_state: dict, command: str) -> None:
             game_state["game_over"] = True
         case _:
             print("Неизвестная команда. Введите help, чтобы увидеть список команд.")
-            show_help()
+            show_help(commands)
 
 
 def main():
@@ -73,7 +76,7 @@ def main():
 
     while not game_state["game_over"]:
         command_line = get_input("> ")
-        process_command(game_state, command_line)
+        process_command(game_state, command_line, COMMANDS)
 
 
 if __name__ == "__main__":

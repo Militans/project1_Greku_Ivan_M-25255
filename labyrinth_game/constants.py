@@ -1,4 +1,16 @@
 # labyrinth_game/constants.py
+COMMANDS = {
+    "go <direction>": "перейти в направлении (north/south/east/west)",
+    "north/south/east/west": "перейти без команды go",
+    "look": "осмотреть текущую комнату",
+    "take <item>": "поднять предмет",
+    "use <item>": "использовать предмет из инвентаря",
+    "inventory": "показать инвентарь",
+    "solve": "попытаться решить загадку / открыть сундук",
+    "help": "показать это сообщение",
+    "quit": "выйти из игры",
+}
+
 
 ROOMS = {
     "entrance": {
